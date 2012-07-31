@@ -1,0 +1,55 @@
+<script language="javascript">
+    // 자바 스크립트 시작
+    function writeCheck() {
+        var form = document.writeform;
+
+        if (!form.dbname.value) // form 에 있는 dbname 값이 없을 때
+        {
+            alert("이름을 적어주세요"); // 경고창 띄움
+            form.dbname.focus(); // form 에 있는 dbname 위치로 이동
+            return;
+        }
+        if (!form.dbsubject.value) {
+            alert("제목을 적어주세요");
+            form.dbsubject.focus();
+            return;
+        }
+        if (!form.dbmemo.value) {
+            alert("내용을 적어주세요");
+            form.dbmemo.focus();
+            return;
+        }
+        if (!form.dbemail.value) {
+            alert("이메일을 적어주세요");
+            form.dbemail.focus();
+            return;
+        }
+                
+        form.submit();    
+    }
+</script>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>게시판 글쓰기</title>
+</head>
+<table width=700 border=1 cellspacing=0 cellpadding=5>
+<form name=writeform method=post action="/DoWriteBoard/">
+<tr><td><b>이름</b></td><td><input type=text name=dbname size=50  maxlength=50></td></tr>
+<tr><td><b>이메일</b></td><td><input type=text name=dbemail size=50  maxlength=50></td></tr>
+<tr><td><b>제목</b></td><td><input type=text name=dbsubject size=50  maxlength=50></td></tr>
+<tr><td><b>내용</b></td><td><textarea name=dbmemo cols=50 rows=10></textarea></td></tr>
+</form>
+</table>
+
+<table width=700 border=1 cellspacing=0 cellpadding=0>
+<tr><td>
+
+<input type=button value="등록" OnClick="javascript:writeCheck();">
+
+</td></tr>
+</table>   
+
