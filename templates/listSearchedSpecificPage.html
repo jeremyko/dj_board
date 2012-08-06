@@ -1,11 +1,11 @@
 {% comment %}
-totalCnt: <strong>{{ totalCnt }}</strong> current_page: <strong>{{ current_page }}</strong> boardList: <strong>{{ boardList|length }}</strong>
+totalCnt: <strong>{{ totalCnt }}</strong> current_page: <strong>{{ pageForView }}</strong> boardList: <strong>{{ boardList|length }}</strong>
 {% endcomment %}
 
 <table cellspacing=1 width=700 border=0>
     <tr>
         <td>총 게시물수: {{ totalCnt }}</td>
-        <td><p align=right> 페이지:{{ current_page }} 
+        <td><p align=right> 페이지:{{ pageForView }} 
         </td>
     </tr>
 </table>
@@ -32,7 +32,7 @@ totalCnt: <strong>{{ totalCnt }}</strong> current_page: <strong>{{ current_page 
             <td width=100><p align=center>{{ boardRow.name }}</p></td>                
             <td width=320>
                 <p align=center>
-                    <a href="/viewWork?memo_id={{ boardRow.id }}&current_page={{ current_page }}&searchStr=None" title="{{ boardRow.memo}}">{{ boardRow.subject }}
+                    <a href="/viewWork?memo_id={{ boardRow.id }}&current_page={{ pageForView }}&searchStr={{searchStr}}" title="{{ boardRow.memo}}">{{ boardRow.subject }}
                 </p>
             </td>                      
             <td width=100><p align=center>{{ boardRow.created_date }}</p></td>
@@ -45,19 +45,21 @@ totalCnt: <strong>{{ totalCnt }}</strong> current_page: <strong>{{ current_page 
     {% endif %}
 </table>
 
+{# This is a comment #}
 
 <table cellspacing=1 width=700 border=1 >
     <tr>
         <td>        
         {% for page in totalPageList %}
-            <a href="/listSpecificPageWork?current_page={{page}}" >
+            <a href="/listSearchedSpecificPageWork?searchStr={{searchStr}}&pageForView={{page}}" >
+            
             [
-            {% ifequal page current_page %}
+            {% ifequal page pageForView %}
                 <b>
             {% endifequal %}
             {{page}}
                        
-            {% ifequal page current_page  %}
+            {% ifequal page pageForView  %}
                 </b>
             {% endifequal %}            
             ]               
@@ -70,10 +72,6 @@ totalCnt: <strong>{{ totalCnt }}</strong> current_page: <strong>{{ current_page 
 
 <table width=700>
     <tr>
-        <td><input type=button value="글쓰기"  OnClick="window.location='/show_write_form'">    </td>
-        <td><form name=searchf method=post action="/searchWithSubject/"> 
-            <p align=right><input type=text name=searchStr size=50  maxlength=50>
-            <input type=submit value="글찾기"></p>
-        </td>
+        <td><input type=button value="전체 목록으로 돌아가기"  OnClick="window.location='/'">
     </tr>
 </table>
