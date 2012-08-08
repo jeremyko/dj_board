@@ -43,7 +43,8 @@ def DoWriteBoard(request):
                       name = request.POST['name'],
                       mail = request.POST['email'],
                       memo = request.POST['memo'],
-                      created_date = timezone.now()
+                      created_date = timezone.now(),
+                      hits = 0
                      )
     br.save()
     
@@ -57,7 +58,12 @@ def viewWork(request):
     pk= request.GET['memo_id']    
     #print 'pk='+ pk
     boardData = DjangoBoard.objects.get(id=pk)
-    #print boardData.memo  
+    #print boardData.memo
+    
+    # Update DataBase
+    print 'boardData.hits', boardData.hits
+    DjangoBoard.objects.filter(id=pk).update(hits = boardData.hits + 1)
+      
     return render_to_response('viewMemo.html', {'memo_id': request.GET['memo_id'], 
                                                 'current_page':request.GET['current_page'], 
                                                 'searchStr': request.GET['searchStr'], 
